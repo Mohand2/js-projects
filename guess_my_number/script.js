@@ -6,24 +6,52 @@
 
 
 
+const msg = {
+  correct: 'Correct',
+  higher: 'Higher',
+  lower: 'Lower',
+  guess: 'Start guessing ...',
+};
+const getRandomNumber = () => Math.floor(Math.random() * 20) + 1;
+const getUserNumberValue = () => document.querySelector('.guess').value;
 
-function sleep(ms) {
-  return new Promise(resolve => setTimeout(resolve, ms));
+let number;
+function setNumber() {
+  number = getRandomNumber();
 }
+setNumber();
 
-document.querySelector('.message').textContent = 'correct';
+console.log(`Number = ${number}`);
+let score = 0;
+let highScore = 0;
 
+document.querySelector('.check').addEventListener('click', function () {
+  const userValue = Number(getUserNumberValue());
 
-async function changeValue() {
- 
-    for (let i = 0; i < 11; i++) {
-        document.querySelector('.guess').value = i;
-        if (i === 10) document.querySelector('.message').textContent = "Game Over !"
-  await sleep(1000);
-}
+  if (userValue === number) {
+    document.querySelector('.message').textContent = msg.correct;
+    score++;
+    document.querySelector('.score').textContent = score;
+    if (score > highScore) {
+      highScore = score;
+      document.querySelector('.highscore').textContent = highScore;
+    }
+    setNumber();
+    console.log(`New number = ${number}`);
+  } else if (userValue > number) {
+    document.querySelector('.message').textContent = msg.lower;
+  } else if (userValue < number) {
+    document.querySelector('.message').textContent = msg.higher;
+  }
+});
 
-}
+document.querySelector('.again').addEventListener('click', function () {
+  document.querySelector('.message').textContent = msg.guess;
+  document.querySelector('.guess').value = 0;
+  document.querySelector('.score').textContent = 0;
+  score = 0;
+  setNumber();
+  console.log(number);
 
-
-changeValue();
-
+  //   document.querySelector('.highscore').textContent = 0;
+});
