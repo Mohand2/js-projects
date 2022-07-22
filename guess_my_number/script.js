@@ -1,11 +1,5 @@
 'use strict';
 
-
-
-
-
-
-
 const msg = {
   correct: 'Correct',
   higher: 'Higher',
@@ -30,6 +24,8 @@ document.querySelector('.check').addEventListener('click', function () {
 
   if (userValue === number) {
     document.querySelector('.message').textContent = msg.correct;
+    document.querySelector('.number').textContent = number;
+
     score++;
     document.querySelector('.score').textContent = score;
     if (score > highScore) {
