@@ -21,11 +21,16 @@ let highScore = 0;
 
 document.querySelector('.check').addEventListener('click', function () {
   const userValue = Number(getUserNumberValue());
-
+  if (score > 0) {
+    document.getElementById('body').style.backgroundColor = '#222';
+    document.querySelector('.number').textContent = '?';
+    console.log('score> 0');
+  }
   if (userValue === number) {
     document.querySelector('.message').textContent = msg.correct;
-    document.querySelector('.number').textContent = number;
+    document.getElementById('body').style.backgroundColor = '#2e9e3d';
 
+    document.querySelector('.number').textContent = number;
     score++;
     document.querySelector('.score').textContent = score;
     if (score > highScore) {
@@ -43,6 +48,10 @@ document.querySelector('.check').addEventListener('click', function () {
 
 document.querySelector('.again').addEventListener('click', function () {
   document.querySelector('.message').textContent = msg.guess;
+  document.getElementById('body').style.backgroundColor = '#222';
+
+  document.querySelector('.number').textContent = '?';
+
   document.querySelector('.guess').value = 0;
   document.querySelector('.score').textContent = 0;
   score = 0;
