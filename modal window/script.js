@@ -5,8 +5,6 @@ const modal = document.querySelector('.modal');
 const closeModalBtn = document.querySelector('.close-modal');
 const overlay = document.querySelector('.overlay');
 
-const switcher = [closeModalBtn, overlay];
-
 for (let i = 0; i < showModalBtns.length; i++) {
   showModalBtns[i].addEventListener('click', function () {
     modal.classList.remove('hidden');
@@ -18,13 +16,10 @@ for (let i = 0; i < showModalBtns.length; i++) {
   });
 }
 
-for (let i = 0; i < switcher.length; i++) {
-  switcher[i].addEventListener('click', function () {
-    modal.classList.add('hidden');
-    overlay.classList.add('hidden');
+const colseModal = function () {
+  modal.classList.add('hidden');
+  overlay.classList.add('hidden');
+};
 
-    // Another solution
-    // modal.style.display = 'none';
-    // overlay.style.display = 'none';
-  });
-}
+closeModalBtn.addEventListener('click', colseModal);
+overlay.addEventListener('click', colseModal);
