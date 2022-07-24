@@ -13,8 +13,10 @@ let diceValue;
 let currentScore = 0;
 let player1Score = 0;
 let player2Score = 0;
+
 const rollDiceBtn = document.querySelector('.btn--roll');
 const holdBtn = document.querySelector('.btn--hold');
+const newGameBtn = document.querySelector('.btn--new');
 
 const imgElement = document.querySelector('.dice');
 const currentScoreOfPlayer1 = document.querySelector('#current--0');
@@ -82,11 +84,37 @@ const setScore = () => {
   }
 };
 
-const checkWinner = () => {
-  if (player1Score >= 30) console.log('player 1 wins');
-  if (player2Score >= 30) console.log('player 2 wins');
+const setPlayer1AsStarter = () => {
+  if (Player2.classList.contains('player--active')) {
+    Player2.classList.remove('player--active');
+    Player1.classList.add('player--active');
+  }
 };
 
+const resetGame = () => {
+  currentScore = 0;
+  player1Score = 0;
+  player2Score = 0;
+
+  ScoreOfPlayer1.textContent = player1Score;
+  ScoreOfPlayer2.textContent = player2Score;
+
+  currentScoreOfPlayer1.textContent = currentScore;
+  currentScoreOfPlayer2.textContent = currentScore;
+
+  setPlayer1AsStarter();
+};
+
+const checkWinner = () => {
+  if (player1Score >= 30) {
+    console.log('player 1 wins');
+    return true;
+  }
+  if (player2Score >= 30) {
+    console.log('player 2 wins');
+    return true;
+  }
+};
 const rollDiceFunction = () => {
   changeDiceImg();
   if (diceValue !== 1) {
@@ -100,7 +128,7 @@ const rollDiceFunction = () => {
 };
 const holdScore = () => {
   setScore();
-  checkWinner();
+  if (checkWinner()) resetGame();
   currentScore = 0;
   setCurrentScore();
   switchPlayer();
@@ -108,3 +136,4 @@ const holdScore = () => {
 
 rollDiceBtn.addEventListener('click', rollDiceFunction);
 holdBtn.addEventListener('click', holdScore);
+newGameBtn.addEventListener('click', resetGame);
