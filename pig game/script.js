@@ -16,6 +16,7 @@ const imgElement = document.querySelector('.dice');
 const currentScoreOfPlayer1 = document.querySelector('#current--0');
 const currentScoreOfPlayer2 = document.querySelector('#current--1');
 const Player1 = document.querySelector('.player--0');
+const Player2 = document.querySelector('.player--1');
 
 const randomDiceIndex = () => Math.floor(Math.random() * diceImgs.length);
 const setDiceValue = index => {
@@ -50,12 +51,31 @@ const changeDiceImg = () => {
   setDiceValue(index);
 };
 
-const rollDiceFunction = () => {
-  changeDiceImg();
-  currentScore += diceValue;
+const switchPlayer = () => {
+  if (Player1.classList.contains('player--active')) {
+    Player1.classList.remove('player--active');
+    Player2.classList.add('player--active');
+  } else {
+    Player1.classList.add('player--active');
+    Player2.classList.remove('player--active');
+  }
+};
+
+const setCurrentScore = () => {
   Player1.classList.contains('player--active')
     ? (currentScoreOfPlayer1.textContent = currentScore)
     : (currentScoreOfPlayer2.textContent = currentScore);
+};
+const rollDiceFunction = () => {
+  changeDiceImg();
+  if (diceValue !== 1) {
+    currentScore += diceValue;
+    setCurrentScore();
+  } else {
+    currentScore = 0;
+    setCurrentScore();
+    switchPlayer();
+  }
 };
 
 rollDiceBtn.addEventListener('click', rollDiceFunction);
