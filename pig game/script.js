@@ -107,11 +107,11 @@ const resetGame = () => {
 
 const checkWinner = () => {
   if (player1Score >= 30) {
-    console.log('player 1 wins');
+    alert('player 1 wins');
     return true;
   }
   if (player2Score >= 30) {
-    console.log('player 2 wins');
+    alert('player 2 wins');
     return true;
   }
 };
@@ -128,10 +128,13 @@ const rollDiceFunction = () => {
 };
 const holdScore = () => {
   setScore();
-  if (checkWinner()) resetGame();
-  currentScore = 0;
-  setCurrentScore();
-  switchPlayer();
+  if (checkWinner()) {
+    resetGame();
+  } else {
+    currentScore = 0;
+    setCurrentScore();
+    switchPlayer();
+  }
 };
 
 rollDiceBtn.addEventListener('click', rollDiceFunction);
