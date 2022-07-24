@@ -9,14 +9,22 @@ const switcher = [closeModalBtn, overlay];
 
 for (let i = 0; i < showModalBtns.length; i++) {
   showModalBtns[i].addEventListener('click', function () {
-    modal.style.display = 'block';
-    overlay.style.display = 'block';
+    modal.classList.remove('hidden');
+    overlay.classList.remove('hidden');
+
+    // Another solution
+    // modal.style.display = 'block';
+    // overlay.style.display = 'block';
   });
 }
 
 for (let i = 0; i < switcher.length; i++) {
   switcher[i].addEventListener('click', function () {
-    modal.style.display = 'none';
-    overlay.style.display = 'none';
+    modal.classList.add('hidden');
+    overlay.classList.add('hidden');
+
+    // Another solution
+    // modal.style.display = 'none';
+    // overlay.style.display = 'none';
   });
 }
