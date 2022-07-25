@@ -17,6 +17,7 @@ let player2Score = 0;
 const rollDiceBtn = document.querySelector('.btn--roll');
 const holdBtn = document.querySelector('.btn--hold');
 const newGameBtn = document.querySelector('.btn--new');
+const snackBar = document.querySelector('.snackbar');
 
 const imgElement = document.querySelector('.dice');
 const currentScoreOfPlayer1 = document.querySelector('#current--0');
@@ -28,14 +29,19 @@ const Player2 = document.querySelector('.player--1');
 
 const randomDiceIndex = () => Math.floor(Math.random() * diceImgs.length);
 const setDiceValue = index => {
-    if (index < 6) diceValue = index + 1;
-    console.log(diceValue);
+  if (index < 6) diceValue = index + 1;
+  console.log(diceValue);
 };
 
 const changeDiceImg = () => {
   let index = randomDiceIndex();
   imgElement.src = diceImgs[index];
   setDiceValue(index);
+};
+
+const toggleSnackBar = winner => {
+  snackBar.classList.add('show');
+  snackBar.textContent = `The winner is ${winner}`;
 };
 
 const switchPlayer = () => {
@@ -70,7 +76,8 @@ const setPlayer1AsStarter = () => {
   }
 };
 
-const resetGame = () => {
+const sleep = ms => new Promise(r => setTimeout(r, ms));
+const resetGame = async () => {
   currentScore = 0;
   player1Score = 0;
   player2Score = 0;
@@ -80,20 +87,23 @@ const resetGame = () => {
 
   currentScoreOfPlayer1.textContent = currentScore;
   currentScoreOfPlayer2.textContent = currentScore;
-
   setPlayer1AsStarter();
+  await sleep(2500);
+  if (snackBar.classList.contains('show')) snackBar.classList.remove('show');
 };
 
 const checkWinner = () => {
   if (player1Score >= 30) {
-    alert('player 1 wins');
+    // alert('player 1 wins');
+    toggleSnackBar('Player 1 ');
     return true;
   }
   if (player2Score >= 30) {
-    alert('player 2 wins');
+    // alert('player 2 wins');
+    toggleSnackBar('Player 2');
     return true;
-    }
-    return false;
+  }
+  return false;
 };
 const rollDiceFunction = () => {
   changeDiceImg();
