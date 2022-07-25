@@ -28,29 +28,8 @@ const Player2 = document.querySelector('.player--1');
 
 const randomDiceIndex = () => Math.floor(Math.random() * diceImgs.length);
 const setDiceValue = index => {
-  switch (index) {
-    case 0:
-      diceValue = index + 1;
-      break;
-    case 1:
-      diceValue = index + 1;
-      break;
-    case 2:
-      diceValue = index + 1;
-      break;
-    case 3:
-      diceValue = index + 1;
-      break;
-    case 4:
-      diceValue = index + 1;
-      break;
-    case 5:
-      diceValue = index + 1;
-      break;
-
-    default:
-      break;
-  }
+    if (index < 6) diceValue = index + 1;
+    console.log(diceValue);
 };
 
 const changeDiceImg = () => {
@@ -113,7 +92,8 @@ const checkWinner = () => {
   if (player2Score >= 30) {
     alert('player 2 wins');
     return true;
-  }
+    }
+    return false;
 };
 const rollDiceFunction = () => {
   changeDiceImg();
